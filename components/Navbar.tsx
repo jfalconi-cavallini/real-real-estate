@@ -11,7 +11,7 @@ export default async function Navbar() {
                     Real Real Estate
                 </Link>
                 <div className="flex items-center gap-4 text-sm">
-                    {session ? (
+                    {session?.user ? (
                         <>
                             <Link href="/properties/new" className="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700">
                                 + Post Property
