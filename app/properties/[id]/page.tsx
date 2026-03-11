@@ -55,7 +55,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                             </span>
                             <span>{new Date(property.createdAt).toLocaleDateString()}</span>
                         </div>
-                        {session && session.user.id !== property.authorId && (
+                        {session?.user?.id && session.user.id !== property.authorId && (
                             <div className="mt-4">
                                 <Link
                                     href={`/messages?to=${property.authorId}&name=${encodeURIComponent(property.author.name ?? property.author.email ?? "")}`}
