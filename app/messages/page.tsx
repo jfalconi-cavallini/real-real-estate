@@ -10,7 +10,8 @@ export default async function MessagesPage({
     searchParams: Promise<{ to?: string; name?: string }>;
 }) {
     const session = await auth();
-    if (!session) redirect("/auth/signin");
+    if (!session?.user?.id) redirect("/auth/signin");
+    const userId = session.user.id;
 
     const { to } = await searchParams;
 
