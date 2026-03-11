@@ -41,8 +41,8 @@ export default async function MessagesPage({
     const thread = activePartnerId
         ? messages.filter(
             (m) =>
-                (m.senderId === session.user.id && m.receiverId === activePartnerId) ||
-                (m.senderId === activePartnerId && m.receiverId === session.user.id)
+                (m.senderId === userId && m.receiverId === activePartnerId) ||
+                (m.senderId === activePartnerId && m.receiverId === userId)
         )
         : [];
 
