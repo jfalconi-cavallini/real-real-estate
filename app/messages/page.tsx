@@ -17,7 +17,7 @@ export default async function MessagesPage({
 
     const messages = await prisma.message.findMany({
         where: {
-            OR: [{ senderId: session.user.id }, { receiverId: session.user.id }],
+            OR: [{ senderId: userId }, { receiverId: userId }],
         },
         include: { sender: true, receiver: true },
         orderBy: { createdAt: "asc" },
@@ -25,7 +25,7 @@ export default async function MessagesPage({
 
     const partnerMap = new Map<string, { id: string; name: string | null; email: string | null }>();
     for (const msg of messages) {
-        const partner = msg.senderId === session.user.id ? msg.receiver : msg.sender;
+        const partner = msg.senderId === userId ? msg.receiver : msg.sender;
         if (!partnerMap.has(partner.id)) partnerMap.set(partner.id, partner);
     }
 
@@ -84,7 +84,7 @@ export default async function MessagesPage({
                     {/* Thread */}
                     {activePartner ? (
                         <MessageThread
-                            currentUserId={session.user.id}
+                            currentUserId={userId}
                             partnerId={activePartner.id}
                             partnerName={activePartner.name ?? activePartner.email ?? "Unknown"}
                             initialMessages={thread.map((m) => ({
