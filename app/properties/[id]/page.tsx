@@ -79,11 +79,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
                             action={async (formData: FormData) => {
                                 "use server";
                                 const body = formData.get("body") as string;
-                                if (!body?.trim()) return;
+                                if (!body?.trim() || !session?.user?.id) return;
                                 await prisma.comment.create({
                                     data: {
                                         body,
-                                        authorId: session.user.id,
+                                        authorId: session.user.id!,
                                         propertyId: property.id,
                                     },
                                 });
